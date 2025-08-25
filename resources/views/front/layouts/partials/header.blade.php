@@ -1,3 +1,10 @@
+@php
+  $cartItems = session('cart', []);
+  $cartCount = collect($cartItems)->sum('quantity');
+  $cartTotal = collect($cartItems)->sum(fn($i) =>
+      (isset($i['discountedPrice']) && $i['discountedPrice'] > 0 ? $i['discountedPrice'] : $i['regularPrice']) * $i['quantity']
+  );
+@endphp
 
     <div id="preloader">
         <div id="status">
@@ -132,13 +139,12 @@
                                 <a data-bs-toggle="offcanvas" href="#cartOffcanvasSidebar" role="button"
                                     aria-controls="cartOffcanvasSidebar" class="cart-btn header-btn">
                                     <div class="btn-left">
-                                        <i class="btn-icon flaticon-shopping-bag"></i>
-                                        <span class="count totalCountItem">2</span>
+                                    <i class="btn-icon flaticon-shopping-bag"></i>
+                                    <span class="count totalCountItem">{{ $cartCount }}</span>
                                     </div>
                                     <div class="btn-right">
-                                        <span class="btn-text">Your Cart</span>
-                                        <span class="price totalAmount">
-                                            $ 540</span>
+                                    <span class="btn-text">Your Cart</span>
+                                    <span class="price totalAmount">$ {{ number_format($cartTotal, 2) }}</span>
                                     </div>
                                 </a>
                             </div>

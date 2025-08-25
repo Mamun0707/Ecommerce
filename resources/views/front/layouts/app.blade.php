@@ -10,7 +10,8 @@
     <meta name="keywords"
         content="@yield('keywords')" />
     <meta name="author" content="liveprojectacademy" />
-    {{-- <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     @stack('meta')
 
@@ -69,7 +70,16 @@
             toastr.error("{{ $error }}", 'Validation Error');
         @endforeach
     @endif
+
 </script>
+     @stack('scripts')
+
+     <script>
+        window.routes = {
+            cartAdd: "{{ route('cart.add') }}",
+        };
+        window.csrfToken = "{{ csrf_token() }}";
+    </script>
 
 </body>
 

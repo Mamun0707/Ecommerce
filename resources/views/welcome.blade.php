@@ -146,8 +146,8 @@ $newarrival     = $data['newarrival'];
                                 <span class="regular-price">$ {{ $product->price  ?? ""}}</span>
                                 <span class="price">$ {{ $product->discounted_price  ?? ""}}</span>
                             </div>
-                            <a href="javascript:void(0)" title="Add To Cart" class="add-cart addCart" data-id="11">Add
-                                To Cart <i class="icon fas fa-plus-circle"></i></a>
+                                <a href="javascript:void(0)" title="Add To Cart" class="add-cart addToCart" data-id="{{ $product->id }}">Add
+                                    To Cart <i class="icon fas fa-plus-circle"></i></a>
                         </div>
                     </div>
                 </div>
@@ -431,3 +431,37 @@ $newarrival     = $data['newarrival'];
     <div id="productImgAsset" data-url="/uploaded_files/product_image"></div>
 
     @endsection
+
+    @push('scripts')
+            <script>
+            $.ajaxSetup({
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+            });
+
+            $(document).on('click', '.addToCart', function(e) {
+                e.preventDefault();
+                var productId = $(this).data('id');
+
+                $.ajax({
+                url: "{{ route('cart.add') }}",   // blade rendered here
+                method: "POST",
+                dataType: "json",
+                data: { product_id: productId, quantity: 1 },
+                success: function(response) {
+                    if (response.status === 'success') {
+                    $('.totalCountItem').text(response.cart_count);
+                    $('.totalAmount').text('$ ' + response.total_price);
+                    toastr.success('Product added to cart!', 'Success');
+                    } else {
+                    toastr.error(response.message || 'Error', 'Error');
+                    }
+                },
+                error: function(xhr) {
+                    toastr.error('Something went wrong!', 'Error');
+                }
+                });
+            });
+            </script>
+    @endpush
+
+

@@ -788,6 +788,40 @@
             })
         })
   }
+
+  // set CSRF header once
+if (window.csrfToken) {
+  $.ajaxSetup({
+    headers: { 'X-CSRF-TOKEN': window.csrfToken }
+  });
+}
+
+// handler
+$(document).on('click', '.addCart', function(e) {
+  e.preventDefault();
+  var productId = $(this).data('id');
+
+  $.ajax({
+    url: window.routes.cartAdd,   // safe: provided by Blade inline script
+    method: "POST",
+    dataType: "json",
+    data: { product_id: productId, quantity: 1 },
+    success: function(response) {
+      if (response.status === 'success') {
+        $('.totalCountItem').text(response.cart_count);
+        $('.totalAmount').text('$ ' + response.total_price);
+        toastr.success('Product added to cart!', 'Success');
+      } else {
+        toastr.error(response.message || 'Error', 'Error');
+      }
+    },
+    error: function(xhr) {
+      toastr.error('Something went wrong!', 'Error');
+      console.error(xhr);
+    }
+  });
+});
+
     /*----------------------------
       Product size change
     ------------------------------ */
