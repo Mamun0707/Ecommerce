@@ -268,7 +268,7 @@ $newarrival     = $data['newarrival'];
                                                 <span class="regular-price">$ {{ $newarrival->price  ?? ""}}</span>
                                                 <span class="price">$ {{ $newarrival->discounted_price  ?? ""}}</span>
                                             </div>
-                                            <a href="javascript:void(0)" title="Add To Cart" class="add-cart addCart" data-id="11">Add
+                                            <a href="javascript:void(0)" title="Add To Cart" class="add-cart addToCart" data-id="{{ $newarrival->id}}">Add
                                                 To Cart <i class="icon fas fa-plus-circle"></i></a>
                                         </div>
                                     </div>
@@ -314,7 +314,7 @@ $newarrival     = $data['newarrival'];
                                                 <span class="regular-price">$ {{ $bestselling->price  ?? ""}}</span>
                                                 <span class="price">$ {{ $bestselling->discounted_price  ?? ""}}</span>
                                             </div>
-                                            <a href="javascript:void(0)" title="Add To Cart" class="add-cart addCart" data-id="11">Add
+                                            <a href="javascript:void(0)" title="Add To Cart" class="add-cart addToCart" data-id="{{ $bestselling->id}}">Add
                                                 To Cart <i class="icon fas fa-plus-circle"></i></a>
                                         </div>
                                     </div>
@@ -360,7 +360,7 @@ $newarrival     = $data['newarrival'];
                                                 <span class="regular-price">$ {{ $onsale->price  ?? ""}}</span>
                                                 <span class="price">$ {{ $onsale->discounted_price  ?? ""}}</span>
                                             </div>
-                                            <a href="javascript:void(0)" title="Add To Cart" class="add-cart addCart" data-id="11">Add
+                                            <a href="javascript:void(0)" title="Add To Cart" class="add-cart addToCart" data-id="{{ $onsale->id}}">Add
                                                 To Cart <i class="icon fas fa-plus-circle"></i></a>
                                         </div>
                                     </div>
@@ -406,7 +406,7 @@ $newarrival     = $data['newarrival'];
                                                 <span class="regular-price">$ {{ $featured->price  ?? ""}}</span>
                                                 <span class="price">$ {{ $featured->discounted_price  ?? ""}}</span>
                                             </div>
-                                            <a href="javascript:void(0)" title="Add To Cart" class="add-cart addCart" data-id="11">Add
+                                            <a href="javascript:void(0)" title="Add To Cart" class="add-cart addToCart" data-id="{{ $featured->id}}">Add
                                                 To Cart <i class="icon fas fa-plus-circle"></i></a>
                                         </div>
                                     </div>
